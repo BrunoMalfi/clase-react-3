@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    padding: 16px;
+    text-align: center;
+}
+.card h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 0;
+}
+.card p {
+    font-size: 1em;
+    margin: 8px 0;
+    color: #333;
+}
+.card .price {
+    font-size: 1.2em;
+    color: #333;
+    margin: 16px 0 0;
+}
