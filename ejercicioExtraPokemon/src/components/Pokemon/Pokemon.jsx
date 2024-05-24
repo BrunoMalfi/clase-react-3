@@ -55,7 +55,11 @@ const api= axios.create({
                 clearState();
                 setIsSerching(false)
                 setpokemonDataArr([])
-                
+                message.map((pokemon)=>{
+                    getThisPokemonData(pokemon)
+                    console.log('calling getThisPokemonData for : ',pokemon )
+                    console.log('pokemonDataArr here : ', pokemonDataArr)
+                })
 
             };
             
@@ -71,7 +75,7 @@ const api= axios.create({
             useEffect(() => {
                 searchPockemon();
             }, [data]);
-            
+            const myPokemonArr=[];
             const getThisPokemonData = async (pokemon) => {
                 try {
                     const url = pokemon.url
@@ -79,10 +83,10 @@ const api= axios.create({
                     const filteredUrlParts = urlParts.filter(part => part !== '');
                     const lastUrlValue = filteredUrlParts[filteredUrlParts.length - 1];
                     const res = await api.get("pokemon/"+lastUrlValue);
-                    console.log("Pokemon : ",res.data)
-                    const pokemonDataArrNew=pokemonDataArr.concat([res.data])
-                    console.log("pokemonDataArrNew : ",pokemonDataArrNew)
-                    setpokemonDataArr(pokemonDataArrNew)
+                    // const pokemonDataArrNew=pokemonDataArr.concat([res.data])
+                    myPokemonArr.push(res.data)
+                    console.log(" --------------     myPokemonArr : ", myPokemonArr )
+                    setpokemonDataArr(myPokemonArr)
                 } catch (error) {
                     console.error('Error getting Pokemon:', error);
                 }
@@ -115,17 +119,19 @@ const api= axios.create({
                 })}
             </>
             ):(<div className="container">
-                <button type="submit" onClick={()=>setIsSerching(true)} >Search other Pockemon</button>
-                {message.map((pokemon,i)=>{
-                    const pokemonData = getThisPokemonData(pokemon)
-                })}
+                <button type="submit" onClick={()=>setIsSerching(true)} >Search other Pokemon</button>
+                {/* {message.map((pokemon,i)=>{
+                    getThisPokemonData(pokemon)
+                    console.log('calling getThisPokemonData for : ',pokemon )
+                })} */}
                 
-                {console.log("Pokemon lalalal :",pokemonDataArr)}
-                {/* {pokemonDataArr.map((pokemonData)=>{
-
-                   return <PokemonCard/>
+                {console.log("pokemonDataArr  :",pokemonDataArr)}
+                {console.log("pokemonDataArr count  :",pokemonDataArr.length)}
+                {pokemonDataArr.map((pokemonData,i )=>{
+                    console.log('estoy iterando : ',i )
+                   return <PokemonCard name={pokemonData.name} front={pokemonData.sprites.front_default}  back ={pokemonData.sprites.back_default}frontShiny={pokemonData.sprites.front_shiny} backShiny={pokemonData.sprites.back_shiny} home={pokemonData.sprites.other.home.front_default}/>
                 })
-                } */}
+                } 
                 </div>
             )}
             
